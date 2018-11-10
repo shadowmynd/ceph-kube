@@ -2,7 +2,7 @@
 ## Description
 Responsible for creating azure infrastructure to support managed ceph cluster
 
-###How to Use
+### How to Use
 * Copy `Pulumi.example.yaml` into a file named `Pulumi.<deployment-type>.md`
 * Update following config values with the appropriate values:
     * `azure:tenantId` - The Azure Directory tenant identifier to deploy intof
