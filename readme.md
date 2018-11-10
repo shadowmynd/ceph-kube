@@ -1,4 +1,4 @@
-# Multitenant data storage solution
+# Multi-Tenant data storage solution
 
 ## Purpose
 Create a shared storage solution with a stateless front-end
