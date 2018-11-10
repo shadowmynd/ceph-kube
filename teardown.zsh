@@ -7,7 +7,7 @@ function usage()
     echo "-k - Deploy kubernetes cluster "
 }
 
-if [ $# -le 1 ]; then
+if [ $# -lt 1 ]; then
     echo "ERROR:Wrong number of arguments specified. Parameters received $#. Terminating the script."
     usage
     exit 1
@@ -27,26 +27,18 @@ while getopts ":mk" optname; do
     k) # IP address space
         KUBE=true
         ;;
-    \?) #Invalid option - show help
-        echo "ERROR:Option -${BOLD}$OPTARG${NORM} not allowed."
-        usage
-        exit 1
-        ;;
   esac
 done
 
-if [[ (MANAGED && KUBE) || (!MANAGED && !KUBE) ]]; then
+if [[ ("${MANAGED}" == "true" && "${KUBE}" == "true") || ("${MANAGED}" == "false" && "${KUBE}" == "false") ]]; then
     echo "ERROR:Must select Managed or Kubernetes but not both. Terminating Script."
     usage
     exit 1
 fi
 
-# create images
-./docker/create.zsh
-
 # deploy ceph cluster
-if [[ KUBE ]]; then
-    ./kubectl/teardown.zsh "${@:2}"
+if [[ "${KUBE}" == "true" ]]; then
+    ./kuber/teardown.zsh "${@:2}"
 else
     echo "Automated managed support not available. The file found at ./managed/readme.md describes tearing down managed deployments."
     ./managed/teardown.zsh "${@:2}"

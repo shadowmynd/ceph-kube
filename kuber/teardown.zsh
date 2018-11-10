@@ -3,18 +3,17 @@
 function usage() 
 {
     echo "INFO:"
-    echo "Usage: teardown.zsh [-r AZURE_REGION] "
+    echo "Usage: teardown.zsh [[-r AZURE_REGION]] [-t] "
     echo "The -r (Azure region) parameter specifies the Azure region to destroy"
+    echo "The -t (Test Deployment) parameter specifies no ACS will be destroyed and instead local minikube will be instead"
 }
 
-if [ $# -ne 2 ]; then
-    echo "ERROR:Wrong number of arguments specified. Parameters received $#. Terminating the script."
-    usage
-    exit 1
-fi
-
-while getopts :r:d: optname; do
+test=false
+while getopts :tr:d: optname; do
     case $optname in
+    t) #Test deployment
+        test=true
+        ;;
     r) #Region
         region=${OPTARG}
         ;;
@@ -29,11 +28,22 @@ done
 parent_path=${0:a:h}
 cd "$parent_path"
 
-# connect kubectl to acs engine
-KUBECONFIG=_output/kubeconfig/kubeconfig.$region.json
+if [[ "${test}" == "false" && (-v $region) ]]; then
+    echo "ERROR:Invalid Parameters REGION are required. "
+    usage
+    exit 1
+fi
+
+
+if [[ "${test}" == "false" ]]; then
+    # connect kubectl to acs engine
+    KUBECONFIG=_output/kubeconfig/kubeconfig.$region.json
+fi
 
 # kube
 ./kubectl/teardown.zsh
 
-#acs
-echo "WARN:ACS Engine does not support automated teardown. Use Azure Portal to remove resources."
+if [[ "${test}" == "false" ]]; then
+    #acs
+    echo "WARN:ACS Engine does not support automated teardown. Use Azure Portal to remove resources."
+fi

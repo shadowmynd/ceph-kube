@@ -7,7 +7,7 @@ function usage()
     echo "-k - Deploy kubernetes cluster "
 }
 
-if [ $# -le 1 ]; then
+if [ $# -lt 1 ]; then
     echo "ERROR:Wrong number of arguments specified. Parameters received $#. Terminating the script."
     usage
     exit 1
@@ -42,7 +42,7 @@ fi
 ./docker/create.zsh
 
 # deploy ceph cluster
-if [[ KUBE ]]; then
+if [[ "${KUBE}" == "true" ]]; then
     ./kuber/setup.zsh "${@:2}"
 else
     echo "Automated managed support not available. The file found at ./managed/readme.md describes tearing down managed deployments."
