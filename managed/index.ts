@@ -1,6 +1,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as azure from "@pulumi/azure";
-import * as fast from "./src/index";
+import * as managedceph from "./src/index";
 
 const cephConfig = new pulumi.Config("ceph");
 
@@ -45,9 +45,9 @@ const createVms = (
     category: string, 
     user: {username: string, password: string},
     extraConfig?: object) => {
-    return fast.helpers.utilities.mapMany(
+    return managedceph.helpers.utilities.mapMany(
         count, 
-        vmIndex => fast.resources.createVM(vmIndex, {
+        vmIndex => managedceph.resources.createVM(vmIndex, {
         region: resourceGroup.location,
         resourceGroupName: resourceGroup.name,
         subnetId: dataSubnet.id,
