@@ -45,6 +45,6 @@ fi
 if [[ KUBE ]]; then
     ./kuber/setup.zsh "${@:2}"
 else
-    echo "Automated managed support not available. The file found at ./managed/readme.md describes tearing setting up managed deployments."
+    echo "Automated managed support not available. The file found at ./managed/readme.md describes tearing down managed deployments."
     ./managed/setup.zsh "${@:2}"
 fi
