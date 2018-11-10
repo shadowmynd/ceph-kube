@@ -1,0 +1,21 @@
+apiVersion: ceph.rook.io/v1beta1
+kind: Pool
+metadata:
+  name: pool1-files
+  namespace: rook-ceph
+spec:
+  failureDomain: osd
+  erasureCoded:
+    dataChunks: 2
+    codingChunks: 1
+---
+apiVersion: ceph.rook.io/v1beta1
+kind: Pool
+metadata:
+  name: pool1-staging
+  namespace: rook-ceph
+spec:
+  failureDomain: osd
+  erasureCoded:
+    dataChunks: 2
+    codingChunks: 1

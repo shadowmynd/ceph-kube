@@ -1,0 +1,23 @@
+apiVersion: ceph.rook.io/v1beta1
+kind: Filesystem
+metadata:
+  name: multistore
+  namespace: rook-ceph
+spec:
+  metadataPool:
+    - metadata:
+        name: multistore-metadata
+        namespace: rook-ceph
+    - replicated:
+      size: 3
+  dataPools:
+    - metadata:
+        name: multistore-files
+        namespace: rook-ceph
+    - failureDomain: osd
+    - erasureCoded:
+        dataChunks: 2
+        codingChunks: 1
+  metadataServer:
+    activeCount: 1
+    activeStandby: true

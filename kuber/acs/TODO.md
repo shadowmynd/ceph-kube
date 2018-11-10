@@ -1,0 +1,3 @@
+- Auto-generate ssh_config
+- Automate connection management
+- Convert to Pulumi

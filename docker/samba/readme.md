@@ -1,0 +1,1 @@
+Creates samba front-end for ceph cluster

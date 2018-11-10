@@ -1,0 +1,10 @@
+name: ceph-data
+runtime: nodejs
+description: Ceph cluster provisioner
+template:
+  description: A minimal Azure TypeScript Pulumi program
+  config:
+    azure:environment:
+      description: The Azure environment to use (`public`, `usgovernment`, `german`,
+        `china`)
+      default: public

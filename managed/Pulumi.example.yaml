@@ -1,0 +1,11 @@
+config:
+  azure:environment: public
+  azure:useMsi: "false"
+  azure:tenantId: ""
+  azure:subscriptionId: ""
+  ceph:resourceGroup: ""
+  ceph:region: "CentralUS"
+  ceph:network: "10.0"
+  ceph:dataNetwork: "0"
+  ceph:vm_username: "admin"
+  ceph:vm_password: ""

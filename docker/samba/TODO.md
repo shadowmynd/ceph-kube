@@ -1,0 +1,1 @@
+- Define `passdb backend` in smb.conf

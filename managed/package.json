@@ -1,0 +1,10 @@
+{
+    "name": "ceph-data",
+    "devDependencies": {
+        "@types/node": "latest"
+    },
+    "dependencies": {
+        "@pulumi/pulumi": "latest",
+        "@pulumi/azure": "latest"
+    }
+}

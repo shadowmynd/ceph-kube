@@ -1,0 +1,4 @@
+- Integrate with AAD
+- Expose IPv6 through agent pools
+- Integrate Kerberos into Ceph and Samba
+- Test multistore health after redeploy

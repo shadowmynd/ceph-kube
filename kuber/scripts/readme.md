@@ -1,0 +1,1 @@
+This directory contains various scripts to assist with management of the cluster

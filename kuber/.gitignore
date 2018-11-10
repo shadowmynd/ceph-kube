@@ -1,0 +1,6 @@
+get_pods/*
+pod_logs/
+
+_output/
+translations/
+config

@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: samba-service
+  namespace: samba
+spec:
+  ports:
+  - name: smb
+    port: 445
+  selector:
+    app: samba
+  type: LoadBalancer
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: samba-deployment
+  namespace: samba
+  labels:
+    app: samba
+spec:
+  template:
+    metadata:
+      labels:
+        app: samba
+    spec:
+      containers:
+      - image: custom-samba:latest
+        name: samba
+        ports:
+        - containerPort: 445
+          name: smb
+        volumeMounts:
+        - name: ceph-store
+          mountPath: /storage
+      volumes:
+      - name: ceph-store
+        flexVolume:
+          driver: ceph.rook.io/rook
+          fsType: ceph
+          options:
+            fsName: multistore
+            clusterNamespace: rook-ceph

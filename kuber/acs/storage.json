@@ -1,0 +1,88 @@
+{
+    "apiVersion": "vlabs",
+    "properties": {
+      "orchestratorProfile": {
+        "orchestratorType": "Kubernetes",
+        "kubernetesConfig": {
+          "addons": [
+            {
+              "name": "tiller",
+              "enabled": true,
+              "containers": [
+                  {
+                    "name": "tiller",
+                    "image": "gcr.io/kubernetes-helm/tiller:v2.11.0",
+                    "cpuRequests": "1",
+                    "memoryRequests": "1024Mi",
+                    "cpuLimits": "1",
+                    "memoryLimits": "1024Mi"
+                  }
+                ]
+            },
+            {
+              "name": "kubernetes-dashboard",
+              "enabled": true,
+              "containers": [
+                  {
+                    "name": "kubernetes-dashboard",
+                    "cpuRequests": "50m",
+                    "memoryRequests": "512Mi",
+                    "cpuLimits": "50m",
+                    "memoryLimits": "512Mi"
+                  }
+                ]
+            }
+          ],
+          "useManagedIdentity": true
+        }
+      },
+      "masterProfile": {
+        "count": 3,
+        "dnsPrefix": "",
+        "vmSize": "Standard_D2_v2"
+      },
+      "agentPoolProfiles": [
+        {
+          "name": "mon1",
+          "count": 3,
+          "vmSize": "Standard_DS3_v2",
+          "osType" : "Linux",
+          "distro" : "aks",
+          "availabilityProfile": "AvailabilitySet",
+          "acceleratedNetworkingEnabled": true
+        },
+        {
+          "name": "storage1",
+          "count": 5,
+          "vmSize": "Standard_A2_v2",
+          "storageProfile" : "ManagedDisks",
+          "osType" : "Linux",
+          "distro" : "aks",
+          "diskSizesGB": [1023, 1023, 1023, 1023],
+          "availabilityProfile": "AvailabilitySet",
+          "acceleratedNetworkingEnabled": true
+        },
+        {
+          "name": "storage2",
+          "count": 5,
+          "vmSize": "Standard_A2_v2",
+          "storageProfile" : "ManagedDisks",
+          "osType" : "Linux",
+          "distro" : "aks",
+          "diskSizesGB": [1023, 1023, 1023, 1023],
+          "availabilityProfile": "AvailabilitySet",
+          "acceleratedNetworkingEnabled": true
+        }
+      ],
+      "linuxProfile": {
+        "adminUsername": "azureuser",
+        "ssh": {
+          "publicKeys": [
+            {
+              "keyData": ""
+            }
+          ]
+        }
+      }
+    }
+  }

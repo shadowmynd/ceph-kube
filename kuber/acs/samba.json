@@ -1,0 +1,96 @@
+{
+    "apiVersion": "vlabs",
+    "properties": {
+      "orchestratorProfile": {
+        "orchestratorType": "Kubernetes",
+        "kubernetesConfig": {
+          "addons": [
+            {
+                "name": "tiller",
+                "enabled": true,
+                "containers": [
+                    {
+                      "name": "tiller",
+                      "image": "gcr.io/kubernetes-helm/tiller:v2.11.0",
+                      "cpuRequests": "1",
+                      "memoryRequests": "1024Mi",
+                      "cpuLimits": "1",
+                      "memoryLimits": "1024Mi"
+                    }
+                  ]
+            },
+            {
+                "name": "kubernetes-dashboard",
+                "enabled": true,
+                "containers": [
+                    {
+                      "name": "kubernetes-dashboard",
+                      "cpuRequests": "50m",
+                      "memoryRequests": "512Mi",
+                      "cpuLimits": "50m",
+                      "memoryLimits": "512Mi"
+                    }
+                  ]
+            },
+            {
+                "name": "cluster-autoscaler",
+                "enabled": true,
+                "containers": [
+                  {
+                    "name": "cluster-autoscaler",
+                    "cpuRequests": "100m",
+                    "memoryRequests": "300Mi",
+                    "cpuLimits": "100m",
+                    "memoryLimits": "300Mi"
+                  }
+                ],
+                "config": {
+                  "maxNodes": 20,
+                  "minNodes": 1
+                }
+            },
+            {
+              "name": "blobfuse-flexvolume",
+              "enabled" : true
+            }     
+          ],
+          "useManagedIdentity": true
+        }
+      },
+      "masterProfile": {
+        "count": 3,
+        "dnsPrefix": "",
+        "vmSize": "Standard_D2_v2"
+      },
+      "agentPoolProfiles": [
+        {
+          "name": "smb1",
+          "count": 1,
+          "vmSize": "Standard_DS4_v2",
+          "osType" : "Linux",
+          "distro" : "aks",
+          "availabilityProfile": "VirtualMachineScaleSets",
+          "acceleratedNetworkingEnabled": true
+        },
+        {
+          "name": "smb2",
+          "count": 1,
+          "vmSize": "Standard_DS4_v2",
+          "osType" : "Linux",
+          "distro" : "aks",
+          "availabilityProfile": "VirtualMachineScaleSets",
+          "acceleratedNetworkingEnabled": true
+        }
+      ],
+      "linuxProfile": {
+        "adminUsername": "azureuser",
+        "ssh": {
+          "publicKeys": [
+            {
+              "keyData": ""
+            }
+          ]
+        }
+      }
+    }
+  }
