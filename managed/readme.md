@@ -10,5 +10,4 @@ Responsible for creating azure infrastructure to support managed ceph cluster
     * `ceph:resourceGroup` - The Azure Resource Group to create Ceph infrastructure
     * `ceph:vm_password` - The admin VM password for Ceph VMs
     * `ceph:region` - The Azure Region identifier. E.g. `CentralUS`
-* Update addition parameters as desired
-* 
+* Update additional parameters as desired
